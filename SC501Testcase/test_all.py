@@ -4,14 +4,12 @@
 
 import unittest
 import sys
-from config import globalconfig
-
-# sys.path.append("E:\\Python_simple\\SC501Testcase\\test_case")
-sys.path.append(globalconfig.test_case_path)
+sys.path.append("E:\\Python_simple\\SC501Testcase\\test_case")
+# sys.path.append(globalconfig.test_case_path)
 from test_case import *
 import HTMLTestRunner
 import time
-
+from config import globalconfig
 # allcase = "E:\\Python_simple\\SC501Testcase\\test_case"  # 指明要自动查找的py文件所在文件夹路径
 
 

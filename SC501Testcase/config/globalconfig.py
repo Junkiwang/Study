@@ -45,7 +45,7 @@ read_config = ReadConfig(os.path.join(config_file_path, 'config.ini'))  # 实例
 # 项目参数设置
 project_path = read_config.getValue('projectConfig', 'project_path')  # 获取配置文件中的项目路径
 # 设置测试用例路径
-test_case_path=os.path.join(project_path, 'test_case')
+test_case_path = os.path.join(project_path, 'test_case')
 # 设置日志路径
 log_path = os.path.join(project_path, 'report', 'log')
 # 设置截图文件路径
@@ -55,4 +55,4 @@ report_path = os.path.join(project_path, 'report', 'testreport')
 # 设置默认浏览器
 browser = 'Chrome'
 # 设置测试数据路径
-data_path = os.path.join(project_path, 'data', 'testdata')
+data_path = os.path.join(project_path, 'data')

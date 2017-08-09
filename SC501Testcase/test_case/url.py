@@ -3,5 +3,5 @@
 # Author: Junki
 
 def url():
-    url = 'http://172.18.20.253'
+    url = 'http://172.18.20.250'
     return url

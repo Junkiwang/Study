@@ -7,9 +7,7 @@ from selenium import webdriver
 import time
 import url
 from config import globalconfig
-
-
-# import HTMLTestRunner
+import os
 
 
 class Weblogin(unittest.TestCase):
@@ -66,9 +64,9 @@ class Weblogin(unittest.TestCase):
     def test_login(self):
         "登录测试用例"
         # num = len(open('E:\\Python_simple\\SC501Testcase\\test_case\\accounts.txt').readlines())
-        num = len(open(os.path.join(data_path, 'accounts.txt')).readlines())
+        num = len(open(os.path.join(globalconfig.data_path, 'accounts.txt')).readlines())
         L = []
-        with open(os.path.join(data_path, 'accounts.txt')) as f:  # 系统会在执行完文件操作后自动关闭文件
+        with open(os.path.join(globalconfig.data_path, 'accounts.txt')) as f:  # 系统会在执行完文件操作后自动关闭文件
             for l in f.readlines():
                 L.append(l.strip('\n'))
         print('\n测试数据：%s\n' % L)
@@ -92,6 +90,6 @@ class Weblogin(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    # unittest.main()  # 单个运行时不注释，还要将下面两行注释掉；作为多个py文件运行时，要注释掉，下面两行不注释
-    suite = unittest.TestSuite()
-    suite.addTest(Weblogin("test_login"))  # 在单个py文件中导入用（类名（"方法名"））
+    unittest.main()  # 单个运行时不注释，还要将下面两行注释掉；作为多个py文件运行时，要注释掉，下面两行不注释
+    # suite = unittest.TestSuite()
+    # suite.addTest(Weblogin("test_login"))  # 在单个py文件中导入用（类名（"方法名"））
