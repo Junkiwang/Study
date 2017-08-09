@@ -1,6 +1,8 @@
 # coding=utf-8
 
-import os
+import os, sys
+
+sys.path.append('..')
 from public.common.readconfig import ReadConfig
 
 # 读取配置文件

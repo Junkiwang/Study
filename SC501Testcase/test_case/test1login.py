@@ -6,8 +6,10 @@ import unittest
 from selenium import webdriver
 import time
 import url
+import os, sys
+
+sys.path.append('..')  # 上一级目录
 from config import globalconfig
-import os
 
 
 class Weblogin(unittest.TestCase):
@@ -90,6 +92,6 @@ class Weblogin(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    unittest.main()  # 单个运行时不注释，还要将下面两行注释掉；作为多个py文件运行时，要注释掉，下面两行不注释
-    # suite = unittest.TestSuite()
-    # suite.addTest(Weblogin("test_login"))  # 在单个py文件中导入用（类名（"方法名"））
+    # unittest.main()  # 单个运行时不注释，还要将下面两行注释掉；作为多个py文件运行时，要注释掉，下面两行不注释
+    suite = unittest.TestSuite()
+    suite.addTest(Weblogin("test_login"))  # 在单个py文件中导入用（类名（"方法名"））
