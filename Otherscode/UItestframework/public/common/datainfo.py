@@ -5,7 +5,7 @@ import os
 import xlrd
 import sys
 
-sys.path.append('..\\..')  # 上一级目录
+sys.path.append('../..')  # 上两级目录
 from config import globalparam
 
 data_path = globalparam.data_path
