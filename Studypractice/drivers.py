@@ -10,7 +10,7 @@ def SetUp():
     global driver
     driver = webdriver.Chrome()
     # driver.maximize_window()  # 最大化浏览器窗口
-    driver.get('http://172.18.20.253')
+    driver.get('http://172.18.20.250')
     driver.implicitly_wait(10)  # 智能等待10秒，意思等待页面加载最长10秒时间,全局使用，只使用一次即可
     driver.find_element_by_id('user').clear()  # 清除一下
     elem = driver.find_element_by_id('user')
@@ -45,7 +45,7 @@ def Change_to_Chinese():
     time.sleep(1)
 
 
-Change_to_Chinese()
+# Change_to_Chinese()
 
 
 def Change_to_ManualBt():
@@ -284,4 +284,6 @@ def History():
             print('翻下一页失败')
 
 # History()
-# driver.quit()
+result = EC.alert_is_present()(driver)
+if result:
+    driver.quit()

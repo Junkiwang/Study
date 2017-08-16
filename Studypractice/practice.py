@@ -295,12 +295,37 @@
 # print(time.time() - a)
 #
 
+#
+# import xlrd
+#
+# file = 'test.xlsx'
+# xls1 = xlrd.open_workbook(file)
+# table = xls1.sheet_by_name('Sheet1')
+# dataresult = [table.row_values(i) for i in range(0, table.nrows)]
+# result = [dict(zip(dataresult[0], dataresult[i])) for i in range(1, len(dataresult))]
+# print(result)
+#
+# def action(button):
+#     print('please enter the button %s' % button)
+#
+#
+# def partial(func, arg):
+#     def callme():
+#         return func(arg)
+#
+#     return callme()
+#
+# partial(action, 'one')
 
-import xlrd
-
-file = 'test.xlsx'
-xls1 = xlrd.open_workbook(file)
-table = xls1.sheet_by_name('Sheet1')
-dataresult = [table.row_values(i) for i in range(0, table.nrows)]
-result = [dict(zip(dataresult[0], dataresult[i])) for i in range(1, len(dataresult))]
-print(result)
+# import sys
+# from PyQt5 import QtWidgets
+# app = QtWidgets.QApplication(sys.argv)
+# button = QtWidgets.QPushButton('Hello')
+# button.setFixedSize(400, 400)
+# button.show()
+# app.exec_()
+import copy
+a = [1, 3, 4, 5]
+b = a #copy.copy(a)
+b.append(6)
+print(a, b)
