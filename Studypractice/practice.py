@@ -324,8 +324,5 @@
 # button.setFixedSize(400, 400)
 # button.show()
 # app.exec_()
-import copy
-a = [1, 3, 4, 5]
-b = a #copy.copy(a)
-b.append(6)
-print(a, b)
+import math
+print(eval('1+1'))
