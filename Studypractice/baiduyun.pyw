@@ -36,7 +36,7 @@ class Form(QDialog):
     def updateUi(self):
         text = self.lineedit.text()
         try:
-            self.browser.append("{0} = <b>{1}</b>".format(text, self.search_(text)))
+            self.browser.append("<b>{0}</b>".format(self.search_(text)))
         except:
             self.browser.append("<font color=red>{0} is invalid!</font>".format(text))
 
