@@ -30,7 +30,7 @@ class Form(QDialog):
         self.setWindowTitle("百度云资源搜索")
 
     def search_(self, txt):
-        result = (fmovice.Search_Movice(txt)).split('')
+        result = fmovice.Search_Movice(txt)
         return result
 
     def updateUi(self):
