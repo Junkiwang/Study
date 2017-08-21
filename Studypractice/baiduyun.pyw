@@ -30,13 +30,13 @@ class Form(QDialog):
         self.setWindowTitle("百度云资源搜索")
 
     def search_(self, txt):
-        result = fmovice.Search_Movice(txt)
+        result = (fmovice.Search_Movice(txt)).split('')
         return result
 
     def updateUi(self):
         text = self.lineedit.text()
         try:
-            self.browser.append("<b>{0}</b>".format(self.search_(text)))
+            self.browser.append("{0}".format(self.search_(text)))
         except:
             self.browser.append("<font color=red>{0} is invalid!</font>".format(text))
 
