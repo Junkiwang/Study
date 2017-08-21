@@ -19,7 +19,7 @@ class Form(QDialog):
     def __init__(self, parent=None):
         super(Form, self).__init__(parent)
         self.browser = QTextBrowser()
-        self.lineedit = QLineEdit("输入关键词并按Enter键,等待10秒")
+        self.lineedit = QLineEdit("输入关键词并按Enter键,等待10秒左右")
         self.lineedit.selectAll()
         layout = QVBoxLayout()
         layout.addWidget(self.lineedit)
