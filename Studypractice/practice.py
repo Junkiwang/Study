@@ -324,5 +324,26 @@
 # button.setFixedSize(400, 400)
 # button.show()
 # app.exec_()
-import math
-print(eval('1+1'))
+print("输入坐标")
+xx = input("x's：")
+yy = input("y's：")
+xx = xx.split('/')
+list(map(float, xx))
+yy = yy.split('/')
+list(map(float, yy))
+a = float(list(xx)[0])
+b = float(list(xx)[1])
+c = float(list(yy)[0])
+d = float(list(yy)[1])
+
+print("第一个点是：(" + str(a) + "," + str(c) + ")")
+print("第一个点是：(" + str(b) + "," + str(d) + ")")
+
+x0 = float(a - b)
+y0 = float(c - d)
+
+print("直线方程为：")
+if x0 == 0:
+    print("x=", a)
+else:
+    print("y=%.4f(x-%r)+%.2f" % (y0 / x0, a, c))

@@ -235,7 +235,7 @@ def Text_is_here():
             for n in row:
                 i += 1
                 locator = ('id', n)
-                text = 'DC Under Voltage'
+                text = 'SFGHGFSG'
                 result = EC.text_to_be_present_in_element(locator, text)(driver)
                 if result:
                     print('第%s条告警为%s，断言测试成功' % (i, text))
@@ -253,7 +253,7 @@ def Text_is_here():
             print('无此告警，断言测试失败')
 
 
-# Text_is_here()
+Text_is_here()
 
 
 def History():
@@ -284,6 +284,4 @@ def History():
             print('翻下一页失败')
 
 # History()
-result = EC.alert_is_present()(driver)
-if result:
-    driver.quit()
+driver.quit()
