@@ -28,72 +28,6 @@
 #         continue
 #     break
 
-# driver = webdriver.Chrome()
-# url = 'http://172.18.20.253'
-# driver.get(url)
-# driver.implicitly_wait(10)c
-# for k, v in accounts.usedict().items():
-#     try:
-#         a = {k: v}
-#         b = {'root': '000000', 'admin': '170313', 'engineer': '1031', 'guest': 'guest'}
-#         if set(a.items()).issubset(b.items()):
-#             driver.find_element_by_id('user').clear()
-#             driver.find_element_by_id('user').send_keys(k)
-#             driver.find_element_by_id('password').clear()
-#             driver.find_element_by_id('password').send_keys(v)
-#             driver.find_element_by_xpath('//input[@value="Login"]').click()
-#             time.sleep(1)
-#             driver.switch_to.frame('head')
-#             text = driver.find_element_by_xpath('//*[@id="accesslevel"]').text
-#             if text:
-#                 print(k, v + '-->登录成功')
-#             driver.find_element_by_xpath("//a[contains(text(), 'Logout')]").click()
-#             print('已登出')
-#         else:
-#             driver.find_element_by_id('user').clear()
-#             driver.find_element_by_id('user').send_keys(k)
-#             driver.find_element_by_id('password').clear()
-#             driver.find_element_by_id('password').send_keys(v)
-#             driver.find_element_by_xpath('//input[@value="Login"]').click()
-#             time.sleep(1)
-#             elme = driver.switch_to.alert
-#             print(k, v + '-->' + elme.text)
-#             elme.accept()
-#     except:
-#         driver.quit()
-# driver.quit()
-
-# driver = webdriver.Chrome()
-# url = 'http://172.18.20.253'
-# driver.get(url)
-# driver.implicitly_wait(10)
-# num = len(open('accounts.txt').readlines())
-# L = []
-# with open('accounts.txt') as f:  # 系统会在执行完文件操作后自动关闭文件
-#     for l in f.readlines():
-#         L.append(l.strip('\n'))
-# print(L)
-# for i in range(num):
-#     USE = L[i].split(':')
-#     driver.find_element_by_id('user').clear()
-#     driver.find_element_by_id('user').send_keys(USE[0])
-#     driver.find_element_by_id('password').clear()
-#     driver.find_element_by_id('password').send_keys(USE[1])
-#     driver.find_element_by_xpath('//input[@value="Login"]').click()
-#     time.sleep(1)
-#     try:
-#         driver.switch_to.frame('head')
-#         text = driver.find_element_by_xpath('//*[@id="accesslevel"]').text
-#         if text:
-#             print(USE[0], USE[1] + '-->登录成功')
-#         driver.find_element_by_xpath("//a[contains(text(), 'Logout')]").click()
-#         print('已登出')
-#     except:
-#         elme = driver.switch_to.alert
-#         print(USE[0], USE[1] + '-->' + elme.text)
-#         elme.accept()
-# driver.quit()
-
 # class Login(unittest.TestCase):
 #     def setUp(self):
 #         url_login = "https://passport.cnblogs.com/user/signin"
@@ -174,8 +108,9 @@
 
 # from datetime import datetime
 # import os
-#
+# print(os.name, os.environ)
 # pwd = os.path.abspath('.')
+# print(pwd)
 # print('      Size Last Modified    Name')
 # print('-----------------------------------------------------')
 # for f in os.listdir(pwd):
@@ -187,41 +122,41 @@
 # 序列化
 # dump和load是处理文件对象，dumps和loads是直接在内存上处理
 
-# import pickle
+import pickle
 
-# d = dict(name='Bob', age=12, socre=3)
-# print(pickle._dumps(d))
-# with open('pickle.txt', 'wb') as f:  # bytes序列化，用二进制读写
-#     pickle.dump(d, f)
-# with open('pickle.txt', 'rb') as f:  # 反序列化
-#     d = pickle.load(f)
-#     print(d)
+d = dict(name='Bob', age=12, socre=3)
+print(pickle.dumps(d))
+with open('pickle.txt', 'wb') as f:  # bytes序列化，用二进制读写
+    pickle.dump(d, f)
+with open('pickle.txt', 'rb') as f:  # 反序列化
+    d = pickle.load(f)
+    print(d)
 
-# import json
+import json
+
+d = dict(name='Bob', age=12, socre=88)
+print(json.dumps(d))
+with open('json.txt', 'w') as f:  # str序列化，用字节读写
+    json.dump(d, f)
+with open('json.txt', 'r') as f:  # 反序列化
+    d = json.load(f)
+    print(d)
 #
-# d = dict(name='Bob', age=12, socre=88)
-# print(json.dumps(d))
-# with open('json.txt', 'w') as f:  # str序列化，用字节读写
-#     json.dump(d, f)
-# with open('json.txt', 'r') as f:  # 反序列化
-#     d = json.load(f)
-#     print(d)
 #
-#
-# class Student(object):
-#     def __init__(self, name, age, score):
-#         self.name = name
-#         self.age = age
-#         self.score = score
-#
-#     def __str__(self):
-#         return 'Student object (%s, %s, %s)' % (self.name, self.age, self.score)
-#
-# s = Student('Bob', 20, 88)
-# std_data = json.dumps(s, default=lambda obj: obj.__dict__)
-# print('Dump Student:', std_data)
-# rebuild = json.loads(std_data, object_hook=lambda d: Student(d['name'], d['age'], d['score']))
-# print(rebuild)
+class Student(object):
+    def __init__(self, name, age, score):
+        self.name = name
+        self.age = age
+        self.score = score
+
+    def __str__(self):
+        return 'Student object (%s, %s, %s)' % (self.name, self.age, self.score)
+
+s = Student('Bob', 20, 88)
+std_data = json.dumps(s, default=lambda obj: obj.__dict__)
+print('Dump Student:', std_data)
+rebuild = json.loads(std_data, object_hook=lambda d: Student(d['name'], d['age'], d['score']))
+print(rebuild)
 
 # import os
 #
@@ -324,26 +259,28 @@
 # button.setFixedSize(400, 400)
 # button.show()
 # app.exec_()
-print("输入坐标")
-xx = input("x's：")
-yy = input("y's：")
-xx = xx.split('/')
-list(map(float, xx))
-yy = yy.split('/')
-list(map(float, yy))
-a = float(list(xx)[0])
-b = float(list(xx)[1])
-c = float(list(yy)[0])
-d = float(list(yy)[1])
 
-print("第一个点是：(" + str(a) + "," + str(c) + ")")
-print("第一个点是：(" + str(b) + "," + str(d) + ")")
 
-x0 = float(a - b)
-y0 = float(c - d)
-
-print("直线方程为：")
-if x0 == 0:
-    print("x=", a)
-else:
-    print("y=%.4f(x-%r)+%.2f" % (y0 / x0, a, c))
+# print("输入坐标")
+# xx = input("x's：")
+# yy = input("y's：")
+# xx = xx.split('/')
+# list(map(float, xx))
+# yy = yy.split('/')
+# list(map(float, yy))
+# a = float(list(xx)[0])
+# b = float(list(xx)[1])
+# c = float(list(yy)[0])
+# d = float(list(yy)[1])
+#
+# print("第一个点是：(" + str(a) + "," + str(c) + ")")
+# print("第一个点是：(" + str(b) + "," + str(d) + ")")
+#
+# x0 = float(a - b)
+# y0 = float(c - d)
+#
+# print("直线方程为：")
+# if x0 == 0:
+#     print("x=", a)
+# else:
+#     print("y=%.4f(x-%r)+%.2f" % (y0 / x0, a, c))
