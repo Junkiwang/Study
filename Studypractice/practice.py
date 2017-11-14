@@ -122,41 +122,41 @@
 # 序列化
 # dump和load是处理文件对象，dumps和loads是直接在内存上处理
 
-import pickle
-
-d = dict(name='Bob', age=12, socre=3)
-print(pickle.dumps(d))
-with open('pickle.txt', 'wb') as f:  # bytes序列化，用二进制读写
-    pickle.dump(d, f)
-with open('pickle.txt', 'rb') as f:  # 反序列化
-    d = pickle.load(f)
-    print(d)
-
-import json
-
-d = dict(name='Bob', age=12, socre=88)
-print(json.dumps(d))
-with open('json.txt', 'w') as f:  # str序列化，用字节读写
-    json.dump(d, f)
-with open('json.txt', 'r') as f:  # 反序列化
-    d = json.load(f)
-    print(d)
+# import pickle
+#
+# d = dict(name='Bob', age=12, socre=3)
+# print(pickle.dumps(d))
+# with open('pickle.txt', 'wb') as f:  # bytes序列化，用二进制读写
+#     pickle.dump(d, f)
+# with open('pickle.txt', 'rb') as f:  # 反序列化
+#     d = pickle.load(f)
+#     print(d)
+#
+# import json
+#
+# d = dict(name='Bob', age=12, socre=88)
+# print(json.dumps(d))
+# with open('json.txt', 'w') as f:  # str序列化，用字节读写
+#     json.dump(d, f)
+# with open('json.txt', 'r') as f:  # 反序列化
+#     d = json.load(f)
+#     print(d)
 #
 #
-class Student(object):
-    def __init__(self, name, age, score):
-        self.name = name
-        self.age = age
-        self.score = score
-
-    def __str__(self):
-        return 'Student object (%s, %s, %s)' % (self.name, self.age, self.score)
-
-s = Student('Bob', 20, 88)
-std_data = json.dumps(s, default=lambda obj: obj.__dict__)
-print('Dump Student:', std_data)
-rebuild = json.loads(std_data, object_hook=lambda d: Student(d['name'], d['age'], d['score']))
-print(rebuild)
+# class Student(object):
+#     def __init__(self, name, age, score):
+#         self.name = name
+#         self.age = age
+#         self.score = score
+#
+#     def __str__(self):
+#         return 'Student object (%s, %s, %s)' % (self.name, self.age, self.score)
+#
+# s = Student('Bob', 20, 88)
+# std_data = json.dumps(s, default=lambda obj: obj.__dict__)
+# print('Dump Student:', std_data)
+# rebuild = json.loads(std_data, object_hook=lambda d: Student(d['name'], d['age'], d['score']))
+# print(rebuild)
 
 # import os
 #
@@ -168,14 +168,16 @@ print(rebuild)
 # else:
 #     print('I (%s) just created a child process (%s).' % (os.getpid(), pid))
 
+# 多进程
 # from multiprocessing import Process
 # import os
 #
-# # 子进程要执行的代码
-# def run_proc(name):
+#
+# def run_proc(name):  # 子进程要执行的代码
 #     print('Run child process %s (%s)...' % (name, os.getpid()))
 #
-# if __name__=='__main__':
+#
+# if __name__ == '__main__':
 #     print('Parent process %s.' % os.getpid())
 #     p = Process(target=run_proc, args=('test',))
 #     print('Child process will start.')
@@ -183,6 +185,72 @@ print(rebuild)
 #     p.join()
 #     print('Child process end.')
 
+# 进程池
+# from multiprocessing import Pool
+# import time, os, random
+#
+#
+# def long_time_task(name):
+#     print('Run task %s (%s)...' % (name, os.getpid()))
+#     start = time.time()
+#     time.sleep(random.random() * 3)
+#     end = time.time()
+#     print('Task %s runs %0.2f seconds.' % (name, (end - start)))
+#
+#
+# if __name__ == '__main__':
+#     print('Parent process %s.' % os.getpid())
+#     p = Pool(2)
+#     for i in range(4):
+#         p.apply_async(long_time_task, args=(i,))
+#     print('Waiting for all subprocess done...')
+#     p.close()
+#     p.join()
+#     print('All subprocess done.')
+
+# 子进程
+# import subprocess
+#
+# print('$ nslookup www.python.org')
+# r = subprocess.call(['nslookup', 'www.python.org'])
+# print('Exit code:', r)
+
+import subprocess  # 用communicate加输入的子进程
+
+print('$ nslookup')
+p = subprocess.Popen(['nslookup'], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+output, err = p.communicate(b'set q=mx\npython.org\nexit\n')
+print(output.decode('gbk'))  # windows的CMD命令窗口默认gbk编码
+print('Exit code:', p.returncode)
+
+# 进程间通信
+# from multiprocessing import Queue, Process
+# import time, os, random
+#
+#
+# def write(q):  # 写数据进程的执行代码
+#     print('Process to write: %s' % os.getpid())
+#     for value in ['A', 'B', 'C']:
+#         print('Put %s to queue...' % value)
+#         q.put(value)
+#         time.sleep(random.random())
+#
+#
+# def read(q):  # 读数据进程的执行代码
+#     print('Process to read: %s' % os.getpid())
+#     while True:
+#         value = q.get(True)
+#         print('Get %s from queue.' % value)
+#
+#
+# if __name__ == '__main__':
+#     q = Queue()  # 父进程创建Queue，并传给各个子进程
+#     pw = Process(target=write, args=(q,))
+#     pr = Process(target=read, args=(q,))
+#     pw.start()  # 启动写的子进程
+#     pr.start()  # 启动读的子进程
+#     pw.join()  # 等待pw结束
+#     pr.terminate()  # pr进程里是死循环，无法等待其结束，只能强行终止
 
 # from selenium import webdriver
 # from selenium.webdriver.support.ui import Select
@@ -199,37 +267,12 @@ print(rebuild)
 # driver.find_element_by_xpath('//input[@value="Login"]').click()
 # time.sleep(1)
 #
-# driver.switch_to.frame('sidebar')
-# driver.find_element_by_xpath('//a[contains(text(),"Calibration Setting")]').click()
-# time.sleep(1)
-# driver.switch_to.parent_frame()
-# driver.switch_to.frame('main')
-# def x():
-#     for n in range(3):
-#         Select(driver.find_element_by_id('caliParam')).select_by_index(n)
-#         time.sleep(1)
-#         current = float(driver.find_element_by_id('sample').text)
-#         if abs(current) >= 0.5:  # 误差太大
-#             print('需要校准')
-#             return False
-#     return True
-# # x()
-# for n in range(3):
-#     Select(driver.find_element_by_id('caliParam')).select_by_index(n)
-#     time.sleep(1)
-#     driver.find_element_by_id('Low').clear()
-#     driver.find_element_by_id('Low').send_keys('0.0')
-#     time.sleep(1)
-#     driver.find_element_by_xpath('//input[@value="Send" and @onclick="SendLow()"]').click()
-# driver.close()
-#
 # import time
 #
 # a = time.time()
 # time.sleep(1)
 # print(time.time() - a)
 #
-
 #
 # import xlrd
 #
