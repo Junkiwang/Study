@@ -215,13 +215,13 @@
 # r = subprocess.call(['nslookup', 'www.python.org'])
 # print('Exit code:', r)
 
-import subprocess  # 用communicate加输入的子进程
-
-print('$ nslookup')
-p = subprocess.Popen(['nslookup'], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-output, err = p.communicate(b'set q=mx\npython.org\nexit\n')
-print(output.decode('gbk'))  # windows的CMD命令窗口默认gbk编码
-print('Exit code:', p.returncode)
+# import subprocess  # 用communicate加输入的子进程
+#
+# print('$ nslookup')
+# p = subprocess.Popen(['nslookup'], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+# output, err = p.communicate(b'set q=mx\npython.org\nexit\n')
+# print(output.decode('gbk'))  # windows的CMD命令窗口默认gbk编码
+# print('Exit code:', p.returncode)
 
 # 进程间通信
 # from multiprocessing import Queue, Process
@@ -251,6 +251,69 @@ print('Exit code:', p.returncode)
 #     pr.start()  # 启动读的子进程
 #     pw.join()  # 等待pw结束
 #     pr.terminate()  # pr进程里是死循环，无法等待其结束，只能强行终止
+
+# 多线程
+# import time, threading
+#
+#
+# def loop():  # 新线程执行的代码
+#     print('thread %s is running...' % threading.current_thread().name)
+#     n = 0
+#     while n < 5:
+#         n = n + 1
+#         print('thread %s >>> %s' % (threading.current_thread().name, n))
+#         time.sleep(1)
+#     print('thread %s ended.' % threading.current_thread().name)
+#
+#
+# print('thread %s is running...' % threading.current_thread().name)
+# t = threading.Thread(target=loop, name='LoopThread')
+# t.start()
+# t.join()
+# print('thread %s ended.' % threading.current_thread().name)
+
+# 线程的Lock
+# import threading, time
+#
+# balance = 0  # 假定这是你的银行存款
+# lock = threading.Lock()
+#
+#
+# def change_it(n):
+#     # 先存后取，结果应该为0
+#     global balance
+#     balance = balance + n
+#     balance = balance - n
+#
+#
+# def run_thread(n):
+#     for i in range(1000000):
+#         lock.acquire()  # 获取锁
+#         try:
+#             change_it(n)
+#         finally:
+#             lock.release()  # 释放锁，给别的线程使用
+#
+#
+# t1 = threading.Thread(target=run_thread, args=(5,))
+# t2 = threading.Thread(target=run_thread, args=(8,))
+# t1.start()
+# t2.start()
+# t1.join()
+# t2.join()
+# print(balance)
+
+#死循环线程
+# import threading, multiprocessing
+#
+# def loop():
+#     x = 0
+#     while True:
+#         x = x ^ 1
+#
+# for i in range(multiprocessing.cpu_count()):
+#     t = threading.Thread(target=loop)
+#     t.start()
 
 # from selenium import webdriver
 # from selenium.webdriver.support.ui import Select
