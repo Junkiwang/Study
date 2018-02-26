@@ -516,45 +516,93 @@
 # for i in Thread:
 #     i.start()
 
-#线程同步加锁
+# 线程同步加锁
+# import threading
+# import time
+#
+#
+# def chiHuoGuo(people, do):
+#     print('%s吃火锅的小伙伴：%s' % (time.ctime(), people))
+#     time.sleep(1)
+#     for i in range(3):
+#         time.sleep(1)
+#         print('%s%s正在%s鱼丸' % (time.ctime(), people, do))
+#     print('%s吃火锅的小伙伴：%s' % (time.ctime(), people))
+#
+#
+# class MyThread(threading.Thread):
+#     lock = threading.Lock()
+#
+#     def __init__(self, name, people, do):
+#         threading.Thread.__init__(self)
+#         self.threadName = name
+#         self.people = people
+#         self.do = do
+#
+#     def run(self):
+#         print('开始线程：' + self.threadName)
+#         self.lock.acquire()
+#         chiHuoGuo(self.people, self.do)
+#         self.lock.release()
+#         print('结束线程：' + self.threadName)
+#
+#
+# print('今天聚会吃火锅')
+# thread = []
+# t1 = MyThread('Thread1', 'xiaoming', '添加')
+# t2 = MyThread('Thread2', 'laowang', '吃掉')
+# thread.append(t1)
+# thread.append(t2)
+# for t in thread:
+#     t.start()
+# for t in thread:
+#     t.join()
+# print('结束主线程：吃火锅结束，结账')
+
 import threading
 import time
 
-
-def chiHuoGuo(people, do):
-    print('%s吃火锅的小伙伴：%s' % (time.ctime(), people))
-    time.sleep(1)
-    for i in range(3):
-        time.sleep(1)
-        print('%s%s正在%s鱼丸' % (time.ctime(), people, do))
-    print('%s吃火锅的小伙伴：%s' % (time.ctime(), people))
+con = threading.Condition()
+num = 0
 
 
-class MyThread(threading.Thread):
-    lock = threading.Lock()
-
-    def __init__(self, name, people, do):
+class Producer(threading.Thread):
+    def __init__(self):
         threading.Thread.__init__(self)
-        self.threadName = name
-        self.people = people
-        self.do = do
 
     def run(self):
-        print('开始线程：' + self.threadName)
-        self.lock.acquire()
-        chiHuoGuo(self.people, self.do)
-        self.lock.release()
-        print('结束线程：' + self.threadName)
+        global num
+        con.acquire()
+        print('开始添加！！')
+        while num < 5:
+            num += 1
+            print('火锅里面鱼丸个数：%s' % str(num))
+            time.sleep(1)
+        if num >= 5:
+            print('火锅里面鱼丸数量已经达到5个，不用添加了！！')
+            con.notify()
+        con.release()
 
 
-print('今天聚会吃火锅')
-thread = []
-t1 = MyThread('Thread1', 'xiaoming', '添加')
-t2 = MyThread('Thread2', 'laowang', '吃掉')
-thread.append(t1)
-thread.append(t2)
-for t in thread:
-    t.start()
-for t in thread:
-    t.join()
-print('结束主线程：吃火锅结束，结账')
+class Consumers(threading.Thread):
+    def __init__(self):
+        threading.Thread.__init__(self)
+
+    def run(self):
+        global num
+        con.acquire()
+        print('开始吃啦！！')
+        while num > 0:
+            num -= 1
+            print('火锅里面剩余鱼丸个数：%s' % str(num))
+            time.sleep(1)
+        if num <= 0:
+            print('火锅里面没有鱼丸了，快添加吧！！')
+            con.wait()
+        con.release()
+
+
+a = Producer()
+b = Consumers()
+a.start()
+b.start()
