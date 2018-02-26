@@ -341,54 +341,54 @@
 # t2.join()
 
 # 分布式进程
-# Master端
-import random, time, queue
-from multiprocessing.managers import BaseManager
-
-task_queue = queue.Queue()  # 发送任务的队列
-result_queue = queue.Queue()  # 接收结果的队列
-
-
-def return_task_queue():
-    return task_queue
-
-
-def return_result_queue():
-    return result_queue
-
-
-class QueueManager(BaseManager):  # 从BaseManager继承的QueueManager
-    pass
-
-
-def server_start():
-    # 把两个Queue都注册到网络上，callable参数关联了Queue对象
-    QueueManager.register('get_task_queue', callable=return_task_queue)
-    QueueManager.register('get_result_queue', callable=return_result_queue)
-    # 绑定端口5000，设置验证码'abc'
-    manager = QueueManager(address=('127.0.0.1', 5000), authkey=b'abc')  # 这里必须加上本地默认ip地址127.0.0.1
-    # 启动Queue
-    manager.start()
-    # 获得通过网络访问的Queue对象
-    task = manager.get_task_queue()
-    result = manager.get_result_queue()
-    # 放几个任务进去
-    for i in range(10):
-        n = random.randint(0, 10000)
-        print('Put task %d...' % n)
-        task.put(n)
-    # 从result队列读取结果
-    print('Try get results...')
-    for i in range(10):
-        r = result.get(timeout=10)
-        print('Result: %s' % r)
-    # 关闭
-    manager.shutdown()
-    print('master exit.')
-
-
-if __name__ == '__main__':
-    server_start()
+# # Master端
+# import random, time, queue
+# from multiprocessing.managers import BaseManager
+#
+# task_queue = queue.Queue()  # 发送任务的队列
+# result_queue = queue.Queue()  # 接收结果的队列
+#
+#
+# def return_task_queue():
+#     return task_queue
+#
+#
+# def return_result_queue():
+#     return result_queue
+#
+#
+# class QueueManager(BaseManager):  # 从BaseManager继承的QueueManager
+#     pass
+#
+#
+# def server_start():
+#     # 把两个Queue都注册到网络上，callable参数关联了Queue对象
+#     QueueManager.register('get_task_queue', callable=return_task_queue)
+#     QueueManager.register('get_result_queue', callable=return_result_queue)
+#     # 绑定端口5000，设置验证码'abc'
+#     manager = QueueManager(address=('127.0.0.1', 5000), authkey=b'abc')  # 这里必须加上本地默认ip地址127.0.0.1
+#     # 启动Queue
+#     manager.start()
+#     # 获得通过网络访问的Queue对象
+#     task = manager.get_task_queue()
+#     result = manager.get_result_queue()
+#     # 放几个任务进去
+#     for i in range(10):
+#         n = random.randint(0, 10000)
+#         print('Put task %d...' % n)
+#         task.put(n)
+#     # 从result队列读取结果
+#     print('Try get results...')
+#     for i in range(10):
+#         r = result.get(timeout=10)
+#         print('Result: %s' % r)
+#     # 关闭
+#     manager.shutdown()
+#     print('master exit.')
+#
+#
+# if __name__ == '__main__':
+#     server_start()
 
 # Worker端
 # import time, sys, queue
@@ -501,3 +501,60 @@ if __name__ == '__main__':
 #     print("x=", a)
 # else:
 #     print("y=%.4f(x-%r)+%.2f" % (y0 / x0, a, c))
+
+# import time
+# import threading
+# def chi(cai):
+#     print('%s 吃%s火锅' % (time.ctime(), cai))
+# def ting(shui):
+#     print('%s 听%s的歌' % (time.ctime(),shui))
+# Thread = []
+# t1 = threading.Thread(target=chi, args=('麻辣',))
+# t2 = threading.Thread(target=ting,args=('刘德华',))
+# Thread.append(t1)
+# Thread.append(t2)
+# for i in Thread:
+#     i.start()
+
+#线程同步加锁
+import threading
+import time
+
+
+def chiHuoGuo(people, do):
+    print('%s吃火锅的小伙伴：%s' % (time.ctime(), people))
+    time.sleep(1)
+    for i in range(3):
+        time.sleep(1)
+        print('%s%s正在%s鱼丸' % (time.ctime(), people, do))
+    print('%s吃火锅的小伙伴：%s' % (time.ctime(), people))
+
+
+class MyThread(threading.Thread):
+    lock = threading.Lock()
+
+    def __init__(self, name, people, do):
+        threading.Thread.__init__(self)
+        self.threadName = name
+        self.people = people
+        self.do = do
+
+    def run(self):
+        print('开始线程：' + self.threadName)
+        self.lock.acquire()
+        chiHuoGuo(self.people, self.do)
+        self.lock.release()
+        print('结束线程：' + self.threadName)
+
+
+print('今天聚会吃火锅')
+thread = []
+t1 = MyThread('Thread1', 'xiaoming', '添加')
+t2 = MyThread('Thread2', 'laowang', '吃掉')
+thread.append(t1)
+thread.append(t2)
+for t in thread:
+    t.start()
+for t in thread:
+    t.join()
+print('结束主线程：吃火锅结束，结账')
