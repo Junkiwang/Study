@@ -559,50 +559,190 @@
 #     t.join()
 # print('结束主线程：吃火锅结束，结账')
 
-import threading
-import time
+# 条件变量Condition()
+# import threading
+# import time
+#
+# con = threading.Condition()
+# num = 0
+#
+#
+# class Producer(threading.Thread):
+#     def __init__(self):
+#         threading.Thread.__init__(self)
+#
+#     def run(self):
+#         global num
+#         con.acquire()
+#         print('开始添加！！')
+#         while num < 5:
+#             num += 1
+#             print('火锅里面鱼丸个数：%s' % str(num))
+#             time.sleep(1)
+#         if num >= 5:
+#             print('火锅里面鱼丸数量已经达到5个，不用添加了！！')
+#             con.notify()
+#         con.release()
+#
+#
+# class Consumers(threading.Thread):
+#     def __init__(self):
+#         threading.Thread.__init__(self)
+#
+#     def run(self):
+#         global num
+#         con.acquire()
+#         print('开始吃啦！！')
+#         while num > 0:
+#             num -= 1
+#             print('火锅里面剩余鱼丸个数：%s' % str(num))
+#             time.sleep(1)
+#         if num <= 0:
+#             print('火锅里面没有鱼丸了，快添加吧！！')
+#             con.wait()
+#         con.release()
+#
+#
+# a = Producer()
+# b = Consumers()
+# a.start()
+# b.start()
 
-con = threading.Condition()
-num = 0
+
+# Event事件
+# import threading
+# import time
+#
+# event = threading.Event()
+#
+#
+# def chihuoguo(name):
+#     # 等待事件，进入等待阻塞状态
+#     print('%s 已经启动' % threading.currentThread().getName())
+#     print('小伙伴 %s 已经进入就餐状态！' % name)
+#     time.sleep(1)
+#     event.wait()
+#     # 收到事件后进入运行状态
+#     print('%s 收到通知了.' % threading.currentThread().getName())
+#     print('小伙伴 %s 开始吃咯！' % name)
+#
+#
+# # 设置线程组
+# threads = []
+#
+# # 创建新线程
+# thread1 = threading.Thread(target=chihuoguo, args=("a",))
+# thread2 = threading.Thread(target=chihuoguo, args=("b",))
+#
+# # 添加到线程组
+# threads.append(thread1)
+# threads.append(thread2)
+#
+# # 开启线程
+# for thread in threads:
+#     thread.start()
+#
+# time.sleep(0.1)
+# # 发送事件通知
+# print('主线程通知小伙伴开吃咯！')
+# event.set()
+
+# import threading
+# import time
+#
+# event = threading.Event()
+#
+#
+# def chiHuoGuo(name):
+#     # 等待事件，进入等待阻塞状态
+#     print('%s 已经启动' % threading.currentThread().getName())
+#     print('小伙伴 %s 已经进入就餐状态！' % name)
+#     time.sleep(1)
+#     event.wait()
+#     # 收到事件后进入运行状态
+#     print('%s 收到通知了.' % threading.currentThread().getName())
+#     print('%s 小伙伴 %s 开始吃咯！' % (time.ctime(), name))
+#
+#
+# class myThread(threading.Thread):  # 继承父类threading.Thread
+#     def __init__(self, name, people):
+#         '''重写threading.Thread初始化内容'''
+#         threading.Thread.__init__(self)
+#         self.threadName = name
+#         self.people = people
+#
+#     def run(self):  # 把要执行的代码写到run函数里面 线程在创建后会直接运行run函数
+#         '''重写run方法'''
+#         print("开始线程: " + self.threadName)
+#         chiHuoGuo(self.people)  # 执行任务
+#         print("结束线程: " + self.name)
+#
+#
+# # 设置线程组
+# threads = []
+#
+# # 创建新线程
+# thread1 = myThread('Thread1', 'a')
+# thread2 = myThread('Thread2', 'b')
+# thread3 = myThread('Thread3', 'c')
+# # 添加到线程组
+# threads.append(thread1)
+# threads.append(thread2)
+# threads.append(thread3)
+# # 开启线程
+# for thread in threads:
+#     thread.start()
+#
+# time.sleep(0.1)
+# # 发送事件通知
+# print('集合完毕，人员到齐了，开吃咯！')
+# event.set()
+
+# from bs4 import BeautifulSoup
+# import requests
+#
+# r = requests.get("https://www.qiushibaike.com/")
+# qiubai = r.content
+# soup = BeautifulSoup(qiubai, "html.parser")
+# duanzi = soup.find_all(class_="content")
+# for i in duanzi:
+#     # tag的 .contents 属性可以将tag的子节点以列表的方式输出
+#     duan = i.span.contents  # 取第一个
+#     print(duan)
+
+import re
+
+# test = input('输入字符串：')
+# if re.match(r'^\d{3}\-\d{3,8}$', test):
+#     print('right')
+# else:
+#     print('wrong')
+
+# 切分
+print(re.split(r'[\s\,\:]+', 'a ,b,,,c:::d ,   e'))
+
+# 分组
+m = re.match(r'^(\d{3})-(\d{3,8})$', '010-123456')
+print(m.groups(), m.group(0), m.group(1), m.group(2))
+n = re.match(
+    r'^(0[0-9]|1[0-9]|2[0-3]|[0-9])\:(0[0-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9]|[0-9])'
+    r'\:(0[0-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9]|[0-9])$', '5:32:02')
+print(n.groups(), n.group(1), n.group(2), n.group(3))
+L = re.match(r'^([0-9a-zA-Z]+)@([0-9a-zA-Z]+)\.com$', '35018545@qq.com')
+print(L.groups(), L.group(0), L.group(1), L.group(2))
+
+# 非贪婪匹配，加个?就可以让\d+采用非贪婪匹配,?只对它前面的那个匹配字符串生效
+print(re.match(r'^(\d+?)(0*)$', '102000').groups())
+
+# 编译,预编译该正则表达式，可以重复使用
+re_m = re.compile(r'^(\d{3})-(\d{3,8})$')
+print(re_m.match('012-23565444').groups())
+print(re_m.match('000-521').groups())
 
 
-class Producer(threading.Thread):
-    def __init__(self):
-        threading.Thread.__init__(self)
-
-    def run(self):
-        global num
-        con.acquire()
-        print('开始添加！！')
-        while num < 5:
-            num += 1
-            print('火锅里面鱼丸个数：%s' % str(num))
-            time.sleep(1)
-        if num >= 5:
-            print('火锅里面鱼丸数量已经达到5个，不用添加了！！')
-            con.notify()
-        con.release()
-
-
-class Consumers(threading.Thread):
-    def __init__(self):
-        threading.Thread.__init__(self)
-
-    def run(self):
-        global num
-        con.acquire()
-        print('开始吃啦！！')
-        while num > 0:
-            num -= 1
-            print('火锅里面剩余鱼丸个数：%s' % str(num))
-            time.sleep(1)
-        if num <= 0:
-            print('火锅里面没有鱼丸了，快添加吧！！')
-            con.wait()
-        con.release()
-
-
-a = Producer()
-b = Consumers()
-a.start()
-b.start()
+def name_ofemail(addr):
+    s = r'<?([\w\s.]+)>?([\w\s.]+)?@[\w.]+'
+    m = re.match(s, addr)
+    return m.group(1)
+print(name_ofemail('<Tom Paris>tom@voyager.org'))
+print(name_ofemail('bob@example.com'))
