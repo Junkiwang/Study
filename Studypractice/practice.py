@@ -447,7 +447,7 @@
 # time.sleep(1)
 # print(time.time() - a)
 #
-#
+# # 读excel数据
 # import xlrd
 #
 # file = 'test.xlsx'
@@ -456,7 +456,7 @@
 # dataresult = [table.row_values(i) for i in range(0, table.nrows)]
 # result = [dict(zip(dataresult[0], dataresult[i])) for i in range(1, len(dataresult))]
 # print(result)
-#
+
 # def action(button):
 #     print('please enter the button %s' % button)
 #
