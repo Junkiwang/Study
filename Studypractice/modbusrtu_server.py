@@ -23,9 +23,21 @@ def main():
 
         server.start()
 
-        slave_1 = server.add_slave(1)  # 添加地址为1的从机
-        slave_1.add_block('0', cst.HOLDING_REGISTERS, 0,
-                          100)  # 在从机中添加块名为0的起始地址0，长度100内存块，类型为3(cst.HOLDING_REGISTERS)表示用作保持寄存器
+        slave1 = server.add_slave(1)  # 添加地址为1的从机
+        slave1.add_block('0', cst.HOLDING_REGISTERS, 0, 100)  # 在从机中添加块名为0的起始地址0，长度100内存块，类型为3(cst.HOLDING_REGISTERS)
+
+        # add 2 blocks of holding registers
+        slave1.add_block('a', cst.HOLDING_REGISTERS, 0, 100)  # address 0, length 100
+        slave1.add_block('b', cst.HOLDING_REGISTERS, 200, 20)  # address 200, length 20
+
+        # create another slave with id 5
+        slave2 = server.add_slave(5)
+        slave2.add_block('c', cst.COILS, 0, 100)
+        slave2.add_block('d', cst.HOLDING_REGISTERS, 0, 100)
+
+        # set the values of registers at address 0
+        slave1.set_values('a', 0, range(100))
+
         while True:
             cmd = sys.stdin.readline()  # 以下代码是用来输入终端命令：建立从机，建立内存块，设置内存值，读取内存值
             args = cmd.split(' ')
