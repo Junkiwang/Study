@@ -17,3 +17,4 @@ result = (max(l) / (P/V)) * 100
 print('平均值为：%s' % average_value)
 print('极值为：%s' % L[n])
 print('均流不平衡度为：%.2f%%' % result)
+
