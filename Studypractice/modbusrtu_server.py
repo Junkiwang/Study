@@ -34,12 +34,12 @@ def main():
                 sys.stdout.write('bye-bye\r\n')
                 break
 
-            elif args[0] == 'add_slave':
+            elif args[0] == 'add_slave':  # 示例 add_slave 3
                 slave_id = int(args[1])
                 server.add_slave(slave_id)
                 sys.stdout.write('done: slave %d added\r\n' % (slave_id))
 
-            elif args[0] == 'add_block':
+            elif args[0] == 'add_block':  # 示例 add_block 3 hold 3 0 3
                 slave_id = int(args[1])  # 从机地址
                 name = args[2]  # block块名
                 block_type = int(args[3])  # 块的寄存器读写类型
@@ -49,7 +49,7 @@ def main():
                 slave.add_block(name, block_type, starting_address, length)
                 sys.stdout.write('done: block %s added\r\n' % (name))
 
-            elif args[0] == 'set_values':
+            elif args[0] == 'set_values':  # 示例 set_values 3 hold 0 1 2 3
                 slave_id = int(args[1])  # 从机地址
                 name = args[2]  # block块名
                 address = int(args[3])  # 内存地址
