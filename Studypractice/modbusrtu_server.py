@@ -30,8 +30,8 @@ def main():
         slave1.add_block('a', cst.HOLDING_REGISTERS, 0, 100)  # address 0, length 100
         slave1.add_block('b', cst.HOLDING_REGISTERS, 200, 20)  # address 200, length 20
 
-        # create another slave with id 5
-        slave2 = server.add_slave(5)
+        # create another slave with id 2
+        slave2 = server.add_slave(2)
         slave2.add_block('c', cst.COILS, 0, 100)
         slave2.add_block('d', cst.HOLDING_REGISTERS, 0, 100)
 
