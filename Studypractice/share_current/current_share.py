@@ -12,7 +12,7 @@ class Sharecurrent(QWidget):
     def __init__(self, parent=None):
         super(Sharecurrent, self).__init__(parent)
         self.setWindowTitle('模块均流不平衡度计算器')
-        self.setWindowIcon(QIcon('./images/cartoon1.ico'))
+        self.setWindowIcon(QIcon('E:\\Python_project\\Study\\Studypractice\\share_current\\images\\cartoon1.ico'))
 
         layout = QFormLayout()
         self.input1 = QLineEdit()
