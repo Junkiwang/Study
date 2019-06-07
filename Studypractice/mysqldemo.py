@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*- 
-# Author: Junki
+# Author:
 # coding:utf-8
 
 from idna import unicode
