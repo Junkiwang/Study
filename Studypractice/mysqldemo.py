@@ -66,26 +66,19 @@ def save_to_db(*args):
     try:
         conn = mysql.connector.connect(user='root', password='password', database='test', charset='utf8')
         cursor = conn.cursor()
-        # cursor.execute('create table book(id int(11) primary key, img varchar(100), name varchar(30), '
-        #                'author varchar(30), publisher varchar(30), date varchar(20), price varchar(10), '
-        #                'credit float,  description varchar(30))')
+        cursor.execute('create table if not exists book(id int(11) primary key, img varchar(100), name varchar(30), '
+                       'author varchar(30), publisher varchar(30), date varchar(20), price varchar(10), '
+                       'credit float,  description varchar(30))')
         cursor.execute('insert into book(id, img, name, author, publisher, date, price, credit, description)'
                        ' values(%s, %s, %s, %s, %s, %s, %s, %s, %s)', args)
         conn.commit()
     except Exception as e:
         print('出错', e)
-        cursor.close()
-        conn.close()
     finally:
         cursor.close()
         conn.close()
 
 if __name__ == '__main__':
-    conn = mysql.connector.connect(user='root', password='password', database='test', charset='utf8')
-    cursor = conn.cursor()
-    cursor.execute('create table book(id int(11) primary key, img varchar(100), name varchar(30), '
-                   'author varchar(30), publisher varchar(30), date varchar(20), price varchar(10), '
-                   'credit float,  description varchar(30))')
     save()
 # import mysql.connector
 #
