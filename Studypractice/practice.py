@@ -477,6 +477,31 @@
 # button.show()
 # app.exec_()
 
+
+# print("输入坐标")
+# xx = input("x's：")
+# yy = input("y's：")
+# xx = xx.split('/')
+# list(map(float, xx))
+# yy = yy.split('/')
+# list(map(float, yy))
+# a = float(list(xx)[0])
+# b = float(list(xx)[1])
+# c = float(list(yy)[0])
+# d = float(list(yy)[1])
+#
+# print("第一个点是：(" + str(a) + "," + str(c) + ")")
+# print("第一个点是：(" + str(b) + "," + str(d) + ")")
+#
+# x0 = float(a - b)
+# y0 = float(c - d)
+#
+# print("直线方程为：")
+# if x0 == 0:
+#     print("x=", a)
+# else:
+#     print("y=%.4f(x-%r)+%.2f" % (y0 / x0, a, c))
+
 # import time
 # import threading
 # def chi(cai):
@@ -584,7 +609,7 @@
 # b.start()
 
 
-# Event事件
+# # Event事件
 # import threading
 # import time
 #
@@ -685,7 +710,7 @@
 #     duan = i.span.contents  # 取第一个
 #     print(duan)
 
-import re
+# import re
 
 # test = input('输入字符串：')
 # if re.match(r'^\d{3}\-\d{3,8}$', test):
@@ -693,32 +718,75 @@ import re
 # else:
 #     print('wrong')
 
-# 切分
-print(re.split(r'[\s\,\:]+', 'a ,b,,,c:::d ,   e'))
+# # 切分
+# print(re.split(r'[\s\,\:]+', 'a ,b,,,c:::d ,   e'))
+#
+# # 分组
+# m = re.match(r'^(\d{3})-(\d{3,8})$', '010-123456')
+# print(m.groups(), m.group(0), m.group(1), m.group(2))
+# n = re.match(
+#     r'^(0[0-9]|1[0-9]|2[0-3]|[0-9])\:(0[0-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9]|[0-9])'
+#     r'\:(0[0-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9]|[0-9])$', '5:32:02')
+# print(n.groups(), n.group(1), n.group(2), n.group(3))
+# L = re.match(r'^([0-9a-zA-Z]+)@([0-9a-zA-Z]+)\.com$', '35018545@qq.com')
+# print(L.groups(), L.group(0), L.group(1), L.group(2))
+#
+# # 非贪婪匹配，加个?就可以让\d+采用非贪婪匹配,?只对它前面的那个匹配字符串生效
+# print(re.match(r'^(\d+?)(0*)$', '102000').groups())
+#
+# # 编译,预编译该正则表达式，可以重复使用
+# re_m = re.compile(r'^(\d{3})-(\d{3,8})$')
+# print(re_m.match('012-23565444').groups())
+# print(re_m.match('000-521').groups())
+#
+#
+#
+# def name_ofemail(addr):
+#     s = r'<?([\w\s.]+)>?([\w\s.]+)?@[\w.]+'
+#     m = re.match(s, addr)
+#     return m.group(1)
+# print(name_ofemail('<Tom Paris>tom@voyager.org'))
+# print(name_ofemail('bob@example.com'))
 
-# 分组
-m = re.match(r'^(\d{3})-(\d{3,8})$', '010-123456')
-print(m.groups(), m.group(0), m.group(1), m.group(2))
-n = re.match(
-    r'^(0[0-9]|1[0-9]|2[0-3]|[0-9])\:(0[0-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9]|[0-9])'
-    r'\:(0[0-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9]|[0-9])$', '5:32:02')
-print(n.groups(), n.group(1), n.group(2), n.group(3))
-L = re.match(r'^([0-9a-zA-Z]+)@([0-9a-zA-Z]+)\.com$', '35018545@qq.com')
-print(L.groups(), L.group(0), L.group(1), L.group(2))
+# import pymysql.cursors
+#
+# connection = pymysql.connect(host='localhost', user='root', password='password', db='test', charset='utf8mb4',
+#                              cursorclass=pymysql.cursors.DictCursor)
+# try:
+#     with connection.cursor() as cursor:
+#         sql = "INSERT INTO 'users'('email', 'password') VALUES (%s,%s)"
+#         cursor.execute(sql, ('webmaster@python.org', 'very-secret'))
+#     connection.commit()
+#
+#     with connection.cursor() as cursor:
+#         sql = "SELECT 'id', 'password' FROM 'users' WHERE 'email'=%s"
+#         cursor.execute(sql, ('webmaster@python.org',))
+#         result = cursor.fetchone()
+#         print(result)
+# finally:
+#     connection.close()
 
-# 非贪婪匹配，加个?就可以让\d+采用非贪婪匹配,?只对它前面的那个匹配字符串生效
-print(re.match(r'^(\d+?)(0*)$', '102000').groups())
+# 导入MySQL驱动:
+import mysql.connector
 
-# 编译,预编译该正则表达式，可以重复使用
-re_m = re.compile(r'^(\d{3})-(\d{3,8})$')
-print(re_m.match('012-23565444').groups())
-print(re_m.match('000-521').groups())
-
-
-
-def name_ofemail(addr):
-    s = r'<?([\w\s.]+)>?([\w\s.]+)?@[\w.]+'
-    m = re.match(s, addr)
-    return m.group(1)
-print(name_ofemail('<Tom Paris>tom@voyager.org'))
-print(name_ofemail('bob@example.com'))
+# 注意把password设为你的root口令:
+conn = mysql.connector.connect(user='root', password='password', database='test')
+cursor = conn.cursor()
+try:
+    # 创建user表:
+    cursor.execute('create table if not exists user (id varchar(20) primary key, name varchar(20))')
+    # 插入一行记录，注意MySQL的占位符是%s:
+    cursor.execute('insert into user (id, name) values (%s, %s)', ['3', 'hichael'])
+    print(cursor.rowcount)
+    # 提交事务:
+    conn.commit()
+except:
+    cursor.close()
+finally:
+    # 运行查询:
+    cursor = conn.cursor()
+    cursor.execute('select * from user where id = %s', ('3',))
+    values = cursor.fetchall()
+    print(values)
+    cursor.close()
+    conn.close()
