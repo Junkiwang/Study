@@ -780,8 +780,8 @@ try:
     print(cursor.rowcount)
     # 提交事务:
     conn.commit()
-except:
-    cursor.close()
+except Exception as msg:
+    print(msg)
 finally:
     # 运行查询:
     cursor = conn.cursor()
