@@ -6,7 +6,6 @@ from flask import request
 import mysql.connector
 
 app = Flask(__name__)
-id = 1
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -23,6 +22,7 @@ def signin_form():
              </form>
              <a href="http://localhost:5000/signup"><button>Sign up</button></a>'''
 
+
 @app.route('/signup', methods=['GET'])
 def signup_form():
     return '''<form action="/signup" method="post">
@@ -31,6 +31,7 @@ def signup_form():
              <p><button type="submit">Submit to Sign up</button></p>
                 <a href="javascript:history.back(-1)">Back</a>
              </form>'''
+
 
 @app.route('/signup', methods=['POST'])
 def signup():
@@ -45,6 +46,12 @@ def signup():
         # 创建user表:
         cursor.execute(
             'create table if not exists user (id varchar(20) primary key, name varchar(20), password varchar(20))')
+        cursor.execute('select id from user')
+        idlist = cursor.fetchall()
+        if idlist == []:
+            id = 1
+        else:
+            id = int(max(idlist)[0]) + 1
         # 插入一行记录，注意MySQL的占位符是%s:
         cursor.execute('insert into user (id, name, password) values (%s, %s, %s)', (id, username, password))
         # 提交事务:
@@ -56,8 +63,6 @@ def signup():
     finally:
         cursor.close()
         conn.close()
-        global id
-        id += 1
         return '''<h3>Sign up Success!</h3>
                 <a href="javascript:history.back(-1)">Back to sign in</a>'''
 
