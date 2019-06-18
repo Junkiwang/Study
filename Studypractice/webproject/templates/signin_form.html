@@ -1,0 +1,29 @@
+<html>
+ <head>
+  <title>signin</title>
+ </head>
+<body>
+ {%if message=="Invliad data!"%}
+ <p style="color:red">{{message}}</p>
+ {%endif%}
+ 
+ {%if message=="Wrong username or password!"%}
+ <p style="color:red">{{message}}</p>
+ {%endif%}
+ 
+ {%if message=="Invalid user!"%}
+ <p style="color:red">{{message}}</p>
+ {%endif%}
+ 
+ {%if message=="用户不存在!"%}
+ <p style="color:red">{{message}}</p>
+ {%endif%}
+ 
+ <form action="/signin_form" method="post">
+  <p><input name="username" placeholder="username", value="{{username}}"></p>
+  <p><input name="password" placeholder="password" type="password"></p>
+  <p><button type="submit">Sign in</button></p>
+ </form>
+ <a href="http://172.18.20.165:5000/signup_form"><button>Sign up</button></a>
+</body>
+</html>
