@@ -109,4 +109,4 @@ def signin():
 
 
 if __name__ == '__main__':
-    app.run(host='172.18.20.165')
+    app.run(host='172.18.20.165', debug=True)
