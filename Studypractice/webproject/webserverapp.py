@@ -36,7 +36,7 @@ def signup():
     try:
         # 创建user表:
         cursor.execute(
-            'create table if not exists user (id varchar(20) primary key, name varchar(20), password varchar(20))')
+            'create table if not exists user (id int(10) primary key auto_increment, name varchar(20), password varchar(20)) auto_increment=1')
         # 判断用户名是否已被注册
         cursor.execute('select name from user')
         namelist = cursor.fetchall()
@@ -45,15 +45,15 @@ def signup():
                 return render_template('signup_form.html',
                                        message="This username had been registered,please use another name!",
                                        username=username)
-        # 判断表中id序号
-        cursor.execute('select id from user')
-        idlist = cursor.fetchall()
-        if idlist == []:
-            id = 1
-        else:
-            id = int(max(idlist)[0]) + 1
+        # # 判断表中id序号
+        # cursor.execute('select id from user')
+        # idlist = cursor.fetchall()
+        # if idlist == []:
+        #     id = 1
+        # else:
+        #     id = int(max(idlist)[0]) + 1
         # 插入一行记录，注意MySQL的占位符是%s:
-        cursor.execute('insert into user (id, name, password) values (%s, %s, %s)', (id, username, password))
+        cursor.execute('insert into user (name, password) values (%s, %s)', (username, password))
         # 提交事务:
         conn.commit()
         return render_template('signup_ok.html')
@@ -95,4 +95,4 @@ def signin():
 
 
 if __name__ == '__main__':
-    app.run(host='172.18.20.165', debug=True) # debug启用调试支持。如果代码更改，服务器将自行重新加载
+    app.run(host='172.18.20.165', debug=True)  # debug启用调试支持。如果代码更改，服务器将自行重新加载
