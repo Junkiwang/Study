@@ -36,7 +36,7 @@ def signup():
     try:
         # 创建user表:
         cursor.execute(
-            'create table if not exists user (id int(10) primary key auto_increment, name varchar(20), password varchar(20)) auto_increment=1')
+            'create table if not exists user (id int(10) primary key auto_increment, name varchar(20), password varchar(20)) auto_increment=1')  # id设置为自增主键，从1开始
         # 判断用户名是否已被注册
         cursor.execute('select name from user')
         namelist = cursor.fetchall()
