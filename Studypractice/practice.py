@@ -791,3 +791,15 @@
 #     cursor.close()
 #     conn.close()
 
+import struct
+a = 12
+b = struct.pack('>H', a)
+print(b)
+
+import binascii
+c = b'\x01\x06\x00\x01\x00\x01\x19\xca'
+d = binascii.hexlify(c)
+print(d, d[8:12])
+d = int(d[8:12], 16)
+print(d)
+
