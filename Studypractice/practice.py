@@ -803,3 +803,5 @@ print(d, d[8:12])
 d = int(d[8:12], 16)
 print(d)
 
+import array
+print(array.array('H', (0 for i in range(100))))
