@@ -803,3 +803,9 @@ print(d, d[8:12])
 d = int(d[8:12], 16)
 print(d)
 
+import array
+print(array.array('H', (0 for i in range(100))))
+
+a = 3.45678
+b = float('%.2f' % a)
+c = round(a, 2)
