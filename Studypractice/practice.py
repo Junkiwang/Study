@@ -805,3 +805,13 @@ print(d)
 
 import array
 print(array.array('H', (0 for i in range(100))))
+
+import struct
+e = b'\x01\x06\x75\x75\x00\x7D\x19\xca'
+f = struct.unpack('>H', e[2:4])[0]  # 大端模式，不加方向则默认小端模式
+print(int(e[2] << 8 & 0xFF00 | e[3]))
+print(bin(e[2] << 8 & 0xFF00 | e[3]))
+print(bin((e[2] + 0xFF00) << 8 | e[3]))
+g = e[4] << 8 | e[5]
+h = struct.unpack('>H', e[4:6])[0]
+print(f, g, h)
