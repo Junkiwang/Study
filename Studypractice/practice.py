@@ -792,11 +792,13 @@
 #     conn.close()
 
 import struct
+
 a = 12
 b = struct.pack('>H', a)
 print(b)
 
 import binascii
+
 c = b'\x01\x06\x00\x01\x00\x01\x19\xca'
 d = binascii.hexlify(c)
 print(d, d[8:12])
@@ -804,9 +806,11 @@ d = int(d[8:12], 16)
 print(d)
 
 import array
+
 print(array.array('H', (0 for i in range(100))))
 
 import struct
+
 e = b'\x01\x06\x75\x75\x00\x7D\x19\xca'
 f = struct.unpack('>H', e[2:4])[0]  # 大端模式，不加方向则默认小端模式
 print(int(e[2] << 8 & 0xFF00 | e[3]))
