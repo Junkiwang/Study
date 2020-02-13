@@ -63,7 +63,7 @@ def buy(buy_time, mall):
     while True:
         # 现在时间大于预设时间则开售抢购
         if datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f') > buy_time:
-            driver.refresh()
+            # driver.refresh()  # 商品网页到点自动刷新则不用刷新
             try:
                 # 找到“立即购买”，点击
                 if driver.find_element_by_css_selector(btn_buy):
