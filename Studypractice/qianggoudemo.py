@@ -22,9 +22,6 @@ def login():
         time.sleep(15)
         driver.get("https://cart.taobao.com/cart.htm")
     time.sleep(3)
-    if driver.find_element_by_id("J_SelectAll1"):
-        #driver.find_element_by_xpath('//label[@for="J_CheckBox_1350404472046"]').click()  # 勾选某个商品
-        driver.find_element_by_id("J_SelectAll1").click()  # 勾选全部商品
     now = datetime.datetime.now()
     print("login success:", now.strftime("%Y-%m-%d %H:%M:%S"))
 
@@ -35,10 +32,13 @@ def buy(buytime):
         # print(buytime)
         # 对比时间，时间到的话就点击结算
         if now > buytime:
-            driver.refresh()
+            # driver.refresh()  # 商品网页到点自动刷新则不用刷新
             try:
-                if driver.find_element_by_id("J_Go"):
-                    driver.find_element_by_id("J_Go").click()
+                if driver.find_element_by_id("J_SelectAll1"):
+                    # driver.find_element_by_xpath('//label[@for="J_CheckBox_1350404472046"]').click()  # 勾选某个商品
+                    driver.find_element_by_id("J_SelectAll1").click()  # 勾选全部商品
+                # if driver.find_element_by_id("J_Go"):
+                    driver.find_element_by_id("J_Go").click()  # 结算
                     driver.find_element_by_link_text("提交订单").click()
                     break
             except:
