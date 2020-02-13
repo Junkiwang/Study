@@ -98,7 +98,7 @@ if __name__ == "__main__":
     # 命令行粘贴不便，还是在源代码直接输入吧
     mall = '2'
     # 同上，2是天猫，1是淘宝
-    bt = '2020-02-13 00:00:00'
+    bt = '2020-02-14 00:00:00'
     # 同上，时间自己改
     bt_dt = datetime.datetime.strptime(bt, '%Y-%m-%d %H:%M:%S')
     now_dt = datetime.datetime.now()
