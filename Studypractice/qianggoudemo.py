@@ -32,20 +32,22 @@ def login():
 def buy(buytime):
     while True:
         now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        print(buytime)
+        # print(buytime)
         # 对比时间，时间到的话就点击结算
         if now > buytime:
+            driver.refresh()
             try:
                 if driver.find_element_by_id("J_Go"):
                     driver.find_element_by_id("J_Go").click()
                     driver.find_element_by_link_text("提交订单").click()
+                    break
             except:
-                time.sleep(0.1)
-        print(now)
-        time.sleep(0.1)
+                time.sleep(0.01)
+        # print(now)
+        time.sleep(0.01)
 
 
 if __name__ == "__main__":
-    times = input("请输入抢购时间(例如格式：2019-07-23 15:30:00):")
+    times = '2020-02-14 00:00:00'  # input("请输入抢购时间(例如格式：2019-07-23 15:30:00):")
     login()
     buy(times)
