@@ -95,4 +95,4 @@ def signin():
 
 
 if __name__ == '__main__':
-    app.run(host='172.18.20.165', debug=True)  # debug启用调试支持。如果网页代码更改，服务器将自行重新加载
+    app.run(host='192.168.253.19', debug=True)  # debug启用调试支持。如果网页代码更改，服务器将自行重新加载
