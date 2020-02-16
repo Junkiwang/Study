@@ -94,11 +94,11 @@ if __name__ == "__main__":
     # url=input("请输入商品链接:")
     # mall=input("请选择商城（淘宝 1  天猫 2  输入数字即可）： ")
     # bt=input("请输入开售时间【2019-02-15（空格）12:55:50】")
-    url = 'https://detail.tmall.com/item.htm?spm=a230r.1.14.20.411b21b7musUQW&id=529408043334&ns=1&abbucket=20&skuId=3154155972259'
+    url = 'https://detail.tmall.com/item.htm?spm=a1z0d.6639537.1997196601.4.2e797484agz3f4&id=602774989212&sku_properties=5919063:6536025;122216431:27772'
     # 命令行粘贴不便，还是在源代码直接输入吧
     mall = '2'
     # 同上，2是天猫，1是淘宝
-    bt = '2020-02-14 00:00:00'
+    bt = '2020-02-17 00:00:00'
     # 同上，时间自己改
     bt_dt = datetime.datetime.strptime(bt, '%Y-%m-%d %H:%M:%S')
     now_dt = datetime.datetime.now()
