@@ -41,13 +41,14 @@ def buy(buytime):
                     driver.find_element_by_id("J_Go").click()  # 结算
                     driver.find_element_by_link_text("提交订单").click()
                     break
-            except:
+            except Exception as msg:
+                print(msg)
                 time.sleep(0.01)
         # print(now)
         time.sleep(0.01)
 
 
 if __name__ == "__main__":
-    times = '2020-02-14 00:00:00'  # input("请输入抢购时间(例如格式：2019-07-23 15:30:00):")
+    times = '2020-02-17 00:00:00'  # input("请输入抢购时间(例如格式：2019-07-23 15:30:00):")
     login()
     buy(times)
