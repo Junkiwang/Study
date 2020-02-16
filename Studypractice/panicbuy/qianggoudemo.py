@@ -42,7 +42,7 @@ def buy(buytime):
                     driver.find_element_by_link_text("提交订单").click()
                     break
             except Exception as msg:
-                print(msg)
+                print(msg
                 time.sleep(0.01)
         # print(now)
         time.sleep(0.01)
