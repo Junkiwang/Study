@@ -38,14 +38,13 @@ def buy(buytime):
                 if driver.find_element_by_id("J_SelectAll1"):
                     # driver.find_element_by_xpath('//label[@for="J_CheckBox_1350404472046"]').click()  # 勾选某个商品
                     driver.find_element_by_id("J_SelectAll1").click()  # 勾选全部商品
-                # if driver.find_element_by_id("J_Go"):
-                    driver.find_element_by_id("J_Go").click()  # 结算
+                    time.sleep(0.1)
+                    driver.find_element_by_css_selector("#J_Go").click()  # 结算
                     break
             except Exception as msg:
                 print(msg)
                 time.sleep(0.01)
         # print(now)
-        time.sleep(0.01)
 
     while True:
         try:
