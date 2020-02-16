@@ -16,6 +16,7 @@ driver = webdriver.Chrome()
 def login():
     driver.get("https://www.taobao.com")
     time.sleep(3)
+    driver.maximize_window()
     if driver.find_element_by_link_text("亲，请登录"):
         driver.find_element_by_link_text("亲，请登录").click()
         print("请在15秒内完成扫码")
@@ -39,13 +40,24 @@ def buy(buytime):
                     driver.find_element_by_id("J_SelectAll1").click()  # 勾选全部商品
                 # if driver.find_element_by_id("J_Go"):
                     driver.find_element_by_id("J_Go").click()  # 结算
-                    driver.find_element_by_link_text("提交订单").click()
                     break
             except Exception as msg:
-                print(msg
+                print(msg)
                 time.sleep(0.01)
         # print(now)
         time.sleep(0.01)
+
+    while True:
+        try:
+            # 找到“提交订单”，点击，
+            if driver.find_element_by_link_text("提交订单"):
+                driver.find_element_by_link_text("提交订单").click()
+                # 下单成功，跳转至支付页面
+                print("下单成功，请支付")
+                break
+        except Exception as msg:
+            print(msg)
+            time.sleep(0.01)
 
 
 if __name__ == "__main__":
