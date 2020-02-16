@@ -117,4 +117,4 @@ if __name__ == "__main__":
         driver.maximize_window()
 
         login(url)
-        buy(bt, '1')
+        buy(bt, buytype)
