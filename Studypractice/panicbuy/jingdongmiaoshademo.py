@@ -55,8 +55,8 @@ def buy(buy_time, buytype):
                         break
                     time.sleep(0.01)
                     # 等待时间缩短至10ms，下同
-                except:
-                    # print("预售时间到，但没发现'立即抢购'控件")
+                except Exception as msg:
+                    print(msg)
                     time.sleep(0.01)
             # else:
             #     print('预售时间没到')
@@ -69,8 +69,8 @@ def buy(buy_time, buytype):
                     # 下单成功，跳转至支付页面
                     print("下单成功，请支付")
                     break
-            except:
-                print("已抢购，但没发现'提交订单'控件")
+            except Exception as msg:
+                print(msg)
                 time.sleep(0.01)
     else:
         # "立即预约"的css_selector
@@ -87,8 +87,8 @@ def buy(buy_time, buytype):
                         break
                     time.sleep(0.01)
                     # 等待时间缩短至10ms，下同
-                except:
-                    # print("预约时间到，但没发现'立即预约'控件")
+                except Exception as msg:
+                    print(msg)
                     time.sleep(0.01)
             # else:
             #     print('预约时间没到')
