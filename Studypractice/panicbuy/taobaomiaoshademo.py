@@ -72,8 +72,8 @@ def buy(buy_time, mall):
                     break
                 time.sleep(0.01)
                 # 等待时间缩短至10ms，下同
-            except:
-                # print("预售时间到，但没发现'立即购买'控件")
+            except Exception as msg:
+                print(msg)
                 time.sleep(0.01)
         # else:
         #     print('预售时间没到')
@@ -86,7 +86,8 @@ def buy(buy_time, mall):
                 # 下单成功，跳转至支付页面
                 print("下单成功，请支付")
                 break
-        except:
+        except Exception as msg:
+            print(msg)
             time.sleep(0.01)
 
 
