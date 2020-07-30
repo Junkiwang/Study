@@ -77,8 +77,8 @@ def PIDPlot(Kp=1.0, Ki=0.0, Kd=0.0, L=100):
         if setpoint > 0:
             # 控制反馈函数
             feedback += (outv - (1 / i))
-        # 从 setpoint=0 开始，在t(10)模拟一个阶跃输入
-        if i > 2:
+        # 从 setpoint=0 开始，在t=10模拟一个阶跃输入
+        if i > 9:
             setpoint = 1
         # print('%d %2.3f %2.3f %2.3f %2.3f' % (i, setpoint, feedback, err, outv))
         time.sleep(0.05)
@@ -108,4 +108,4 @@ def PIDPlot(Kp=1.0, Ki=0.0, Kd=0.0, L=100):
 
 
 if __name__ == '__main__':
-    PIDPlot(1.2, 1, 0.01, 50)
+    PIDPlot(1.2, 1, 0.01, 80)
